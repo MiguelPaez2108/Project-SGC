@@ -1,0 +1,32 @@
+/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+html {
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation
+}
+
+body {
+    margin: 0
+}
+
+html {
+    font-size: 16px !important
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #F3F3F3;
+    line-height: 18px;
+    color: #333
+}
+
+h1,h2,h3,h4,p {
+    font-weight: 400;
+    margin: 0
+}
+
+body {
+    font-family: "Roboto","Segoe UI","\5FAE\8EDF\6B63\9ED1\9AD4","Microsoft JhengHei","Arial","\65B0\7D30\660E\9AD4"
+}

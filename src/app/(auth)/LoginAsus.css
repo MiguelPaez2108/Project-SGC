@@ -1,0 +1,897 @@
+/* ========================================
+   ASUS LOGIN PAGE - EXACT REPLICA
+   ======================================== */
+
+/* Import Roboto Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;600;700;900&display=swap');
+
+/* ===== RESET & GLOBAL STYLES SCOPED ===== */
+.asus-login-page {
+  background-color: #f3f3f3;
+  line-height: 1.5;
+  color: #181818;
+  font-family: 'Roboto', 'Segoe UI', 'Microsoft JhengHei', 'Arial', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.asus-login-page * {
+  box-sizing: border-box;
+}
+
+/* ===== HEADER ===== */
+.asus-header {
+  position: relative;
+  height: 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.15);
+  padding: 0 20px;
+  box-sizing: border-box;
+}
+
+.asus-logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1080px;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.asus-logo a {
+  color: #181818;
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  letter-spacing: -0.5px;
+  transition: color 0.2s ease;
+}
+
+.asus-logo a:hover {
+  color: #1f7a3d;
+}
+
+@media screen and (max-width: 731px) {
+  .asus-header {
+    height: 45px;
+    padding: 0 16px;
+  }
+  
+  .asus-logo a {
+    font-size: 1.5rem;
+  }
+}
+
+/* ===== MAIN WRAPPER ===== */
+.asus-wrapper {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  padding: 12px 20px;
+  box-sizing: border-box;
+}
+
+.asus-main {
+  background: #fff;
+  padding: 22px 28px;
+  display: flex;
+  justify-content: space-between;
+  gap: 0;
+  box-shadow: 1px 1px 6px 0 rgba(0, 0, 0, 0.15);
+  width: 100%;
+  border-radius: 20px;
+}
+
+@media screen and (max-width: 1024px) {
+  .asus-main {
+    padding: 32px 24px;
+    gap: 0;
+  }
+  
+  .asus-left {
+    padding-right: 32px;
+  }
+  
+  .asus-right {
+    padding-left: 32px;
+  }
+}
+
+@media screen and (max-width: 731px) {
+  .asus-wrapper {
+    padding: 16px;
+  }
+  
+  .asus-main {
+    box-shadow: 0px 2px 6px -2px rgba(0, 0, 0, 0.3);
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 50px 20px 60px;
+    gap: 0;
+  }
+}
+
+/* ===== LEFT SIDE - BENEFITS ===== */
+.asus-left {
+  flex: 1;
+  width: 50%;
+  padding-right: 32px;
+  border-right: 1px solid #e5e5e5;
+}
+
+.asus-ad {
+  width: 100%;
+}
+
+.asus-main-img {
+  display: block;
+  margin: 0 auto 10px;
+  width: 100%;
+  height: auto;
+  max-width: 320px;
+}
+
+.asus-ad h1 {
+  width: 100%;
+  font-size: 1.625rem;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: -0.02px;
+  color: #181818;
+  margin: 0 0 20px 0;
+}
+
+.asus-ad h2 {
+  width: 100%;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.18;
+  color: #4d4d4d;
+  margin: 0 0 28px 0;
+}
+
+.asus-ad ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.asus-ad li {
+  margin: 0 0 5px 0;
+  font-size: 0.875rem;
+  line-height: 1.18;
+  display: flex;
+  align-items: center;
+  color: #4d4d4d;
+}
+
+.asus-ad li:last-child {
+  margin: 0;
+}
+
+.asus-ad li img {
+  display: inline-block;
+  margin-right: 8px;
+  width: 100%;
+  height: 100%;
+  max-width: 22px;
+  flex-shrink: 0;
+}
+
+@media screen and (max-width: 1024px) {
+  .asus-left {
+    flex: 0 0 280px;
+    width: 280px;
+  }
+  
+  .asus-ad h1 {
+    font-size: 1.875rem;
+  }
+  
+  .asus-ad h2 {
+    font-size: 1.0625rem;
+  }
+}
+
+@media screen and (max-width: 731px) {
+  .asus-left {
+    border-right: 0;
+    padding-right: 0;
+    width: 100%;
+    padding-bottom: 51px;
+    margin-bottom: 0;
+    border-bottom: solid 1px #e5e5e5;
+  }
+  
+  .asus-main-img {
+    max-width: 200px;
+    margin: 32px auto 12px;
+  }
+  
+  .asus-ad h1 {
+    font-size: 1.875rem;
+    line-height: 1.2;
+    letter-spacing: -0.01px;
+  }
+  
+  .asus-ad h2 {
+    margin: 0 0 32px 0;
+    font-size: 1.0625rem;
+    line-height: 1.18;
+  }
+  
+  .asus-ad li {
+    margin: 0 0 8px 0;
+    font-size: 0.9375rem;
+    line-height: 1.2;
+  }
+  
+  .asus-ad li img {
+    max-width: 24px;
+    margin-right: 4px;
+  }
+}
+
+/* ===== RIGHT SIDE - LOGIN FORM ===== */
+.asus-right {
+  flex: 1;
+  width: 50%;
+  padding-left: 32px;
+}
+
+.asus-form-title {
+  font-size: 1.5rem;
+  line-height: 1.3;
+  color: #181818;
+  font-weight: 600;
+  margin: 0 0 14px 0;
+  font-family: 'Roboto', 'Segoe UI', 'Arial', sans-serif;
+}
+
+@media screen and (max-width: 1024px) {
+  .asus-form-title {
+    font-size: 1.875rem;
+  }
+}
+
+@media screen and (max-width: 731px) {
+  .asus-right {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 0;
+    padding-top: 51px;
+  }
+  
+  .asus-form-title {
+    font-size: 1.5rem;
+    line-height: 1.33;
+    margin: 0 0 20px 0;
+  }
+}
+
+/* ===== ALERT MESSAGE ===== */
+.asus-alert {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  font-size: 0.9375rem;
+  line-height: 1.5;
+}
+
+.asus-alert svg {
+  flex-shrink: 0;
+}
+
+.asus-alert-error {
+  background-color: #fdecea;
+  color: #d32f2f;
+  border: 1px solid #f5c6cb;
+}
+
+/* ===== FORM STYLES ===== */
+.asus-form {
+  width: 100%;
+}
+
+.asus-form-group {
+  position: relative;
+  margin-bottom: 18px;
+}
+
+.asus-form-group label {
+  display: block;
+  font-size: 1.0625rem;
+  line-height: 1.18;
+  color: #181818;
+  margin-bottom: 8px;
+  font-weight: 400;
+  transition: color 0.2s ease;
+}
+
+.asus-form-group input {
+  width: 100%;
+  height: 48px;
+  padding: 0 16px;
+  font-size: 1.0625rem;
+  line-height: 1.18;
+  color: #181818;
+  background-color: #fff;
+  border: 1px solid #818181;
+  border-radius: 8px;
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+  transition: border-color 0.2s ease;
+}
+
+.asus-form-group input::placeholder {
+  color: #999;
+  opacity: 1;
+}
+
+.asus-form-group input:hover {
+  border-color: #4d4d4d;
+}
+
+.asus-form-group input:focus {
+  border-color: #1f7a3d;
+  outline: none;
+}
+
+.asus-form-group.asus-has-error input {
+  border-color: #d32f2f;
+}
+
+.asus-form-group.asus-has-error input:focus {
+  border-color: #d32f2f;
+}
+
+.asus-field-hint {
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.23;
+  color: #666;
+  margin-top: 6px;
+}
+
+.asus-error-text {
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.23;
+  color: #d32f2f;
+  margin-top: 8px;
+}
+
+/* Password Group */
+.asus-password-group {
+  margin-top: 18px;
+}
+
+.asus-password-wrapper {
+  position: relative;
+}
+
+.asus-password-wrapper input {
+  padding-right: 48px;
+}
+
+.asus-password-toggle {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  padding: 8px;
+  cursor: pointer;
+  color: #666;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color 0.2s ease;
+}
+
+.asus-password-toggle:hover {
+  color: #181818;
+}
+
+.asus-password-toggle:focus {
+  outline: 2px solid #1f7a3d;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+@media screen and (max-width: 731px) {
+  .asus-form-group {
+    margin-bottom: 20px;
+  }
+  
+  .asus-form-group label {
+    font-size: 0.9375rem;
+  }
+  
+  .asus-form-group input {
+    font-size: 0.9375rem;
+  }
+  
+  .asus-password-group {
+    margin-top: 20px;
+  }
+}
+
+/* ===== REMEMBER ME ===== */
+.asus-remember-me {
+  margin: 12px 0 8px;
+}
+
+.asus-checkbox-label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  padding-left: 24px;
+  user-select: none;
+}
+
+.asus-checkbox-label input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.asus-checkbox-custom {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  transform: translateY(-50%);
+  height: 16px;
+  width: 16px;
+  border-radius: 2px;
+  border: 1px solid #4d4d4d;
+  box-sizing: border-box;
+  background-color: #fff;
+  transition: all 0.2s ease;
+}
+
+.asus-checkbox-label:hover .asus-checkbox-custom {
+  border-color: #1f7a3d;
+}
+
+.asus-checkbox-label input[type="checkbox"]:checked ~ .asus-checkbox-custom {
+  background-color: #1f7a3d;
+  border-color: #1f7a3d;
+}
+
+.asus-checkbox-label input[type="checkbox"]:checked ~ .asus-checkbox-custom::after {
+  content: '';
+  position: absolute;
+  left: 5px;
+  top: 2px;
+  width: 4px;
+  height: 8px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.asus-checkbox-label input[type="checkbox"]:focus ~ .asus-checkbox-custom {
+  outline: 2px solid #1f7a3d;
+  outline-offset: 2px;
+}
+
+.asus-checkbox-text {
+  color: #181818;
+  font-size: 1.0625rem;
+  line-height: 1.18;
+}
+
+.asus-link {
+  color: #1f7a3d;
+  text-decoration: none;
+  font-size: 1.0625rem;
+  transition: color 0.2s ease;
+}
+
+.asus-link:hover {
+  color: #185f30;
+  text-decoration: underline;
+}
+
+/* ===== FORGOT PASSWORD ===== */
+.asus-forgot-password {
+  margin: 0 0 16px;
+}
+
+.asus-forgot-password .asus-link {
+  font-size: 0.9375rem;
+}
+
+@media screen and (max-width: 731px) {
+  .asus-remember-me {
+    margin: 16px 0 8px;
+  }
+  
+  .asus-checkbox-text {
+    font-size: 0.9375rem;
+  }
+  
+  .asus-forgot-password {
+    margin: 0 0 20px;
+  }
+  
+  .asus-forgot-password .asus-link {
+    font-size: 0.875rem;
+  }
+}
+
+/* ===== SUBMIT BUTTON ===== */
+.asus-btn {
+  width: 100%;
+  height: 48px;
+  padding: 0 24px;
+  font-size: 1.0625rem;
+  font-weight: 500;
+  line-height: 1.18;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-family: 'Roboto', 'Segoe UI', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.asus-btn-primary {
+  background-color: #0066cc;
+  color: #fff;
+}
+
+.asus-btn-primary:hover:not(:disabled) {
+  background-color: #0052a3;
+}
+
+.asus-btn-primary:active:not(:disabled) {
+  background-color: #003d7a;
+}
+
+.asus-btn-primary:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.asus-btn-primary:focus {
+  outline: 2px solid #1f7a3d;
+  outline-offset: 2px;
+}
+
+.asus-spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid #fff;
+  border-top-color: transparent;
+  border-radius: 50%;
+  animation: spin 0.6s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media screen and (max-width: 731px) {
+  .asus-btn {
+    font-size: 0.9375rem;
+  }
+}
+
+/* ===== FORM FOOTER (Register Link) ===== */
+.asus-form-footer {
+  margin-top: 18px;
+  text-align: center;
+  font-size: 1rem;
+  color: #4d4d4d;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  line-height: 1.4;
+}
+
+.asus-form-footer span {
+  margin-right: 5px;
+}
+
+.asus-form-footer .asus-link {
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 731px) {
+  .asus-form-footer {
+    font-size: 0.875rem;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .asus-form-footer span {
+    margin-bottom: 8px;
+    margin-right: 0;
+  }
+  
+  .asus-form-footer .asus-link {
+    display: block;
+  }
+}
+
+/* ===== SOCIAL LOGIN ===== */
+.asus-social-login {
+  margin-top: 20px;
+}
+
+.asus-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.asus-divider::before,
+.asus-divider::after {
+  content: '';
+  flex: 0.25;
+  border-bottom: 1px solid #bbb;
+}
+
+.asus-divider span {
+  padding: 0 20px;
+  font-size: 1rem;
+  color: #666;
+  white-space: nowrap;
+  font-weight: 400;
+  text-align: center;
+}
+
+.asus-social-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.asus-social-btn {
+  width: 48px;
+  height: 48px;
+  border: 1px solid #e5e5e5;
+  border-radius: 50%;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 0;
+}
+
+.asus-social-btn:hover {
+  border-color: #1f7a3d;
+  box-shadow: 0 2px 8px rgba(31, 122, 61, 0.15);
+  transform: translateY(-2px);
+}
+
+.asus-social-btn:active {
+  transform: translateY(0);
+}
+
+.asus-social-btn svg {
+  width: 24px;
+  height: 24px;
+}
+
+@media screen and (max-width: 731px) {
+  .asus-social-login {
+    margin-top: 24px;
+  }
+  
+  .asus-divider {
+    margin-bottom: 20px;
+  }
+  
+  .asus-social-buttons {
+    gap: 12px;
+  }
+  
+  .asus-social-btn {
+    width: 44px;
+    height: 44px;
+  }
+}
+
+/* ===== FOOTER ===== */
+.asus-footer {
+  width: 100%;
+  background-color: transparent;
+  border-top: none;
+  padding: 10px 20px;
+  margin-top: auto;
+}
+
+.asus-footer-content {
+  max-width: 1080px;
+  margin: 0 auto;
+  display: flex;
+  gap: 40px;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-size: 0.75rem;
+  color: #4d4d4d;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  border-top: 1px solid #bbb;
+  padding-top: 10px;
+}
+
+.asus-footer-copy {
+  color: #4d4d4d;
+  font-size: 0.75rem;
+  font-weight: 400;
+}
+
+.asus-footer-links {
+  display: flex;
+  gap: 24px;
+  align-items: center;
+}
+
+.asus-footer-links a {
+  text-decoration: none;
+  color: #4d4d4d;
+  font-size: 0.75rem;
+  transition: color 0.2s ease;
+  font-weight: 400;
+}
+
+.asus-footer-links a:hover {
+  color: #1f7a3d;
+}
+
+.asus-footer-locale {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  color: #4d4d4d;
+}
+
+.asus-globe-icon {
+  font-size: 1rem;
+}
+
+@media screen and (max-width: 731px) {
+  .asus-footer {
+    padding: 16px;
+  }
+  
+  .asus-footer-content {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+    font-size: 0.75rem;
+  }
+  
+  .asus-footer-links {
+    flex-direction: column;
+    gap: 8px;
+  }
+}
+
+/* ===== ANIMATIONS ===== */
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.asus-main {
+  animation: slideUp 0.5s ease-out;
+}
+
+/* ===== RTL SUPPORT ===== */
+[dir='rtl'] .asus-left {
+  border-right: 0;
+  border-left: 1px solid #e5e5e5;
+  padding-left: 70px;
+  padding-right: 0;
+}
+
+@media screen and (max-width: 731px) {
+  [dir='rtl'] .asus-left {
+    border-left: 0;
+    padding-left: 0;
+  }
+}
+
+[dir='rtl'] .asus-right {
+  padding-left: 0;
+  padding-right: 70px;
+}
+
+@media screen and (max-width: 731px) {
+  [dir='rtl'] .asus-right {
+    padding-right: 0;
+  }
+}
+
+[dir='rtl'] .asus-ad li img {
+  margin-left: 8px;
+  margin-right: 0;
+}
+
+@media screen and (max-width: 731px) {
+  [dir='rtl'] .asus-ad li img {
+    margin-right: 0;
+    margin-left: 4px;
+  }
+}
+
+[dir='rtl'] .asus-checkbox-label {
+  padding-left: 0;
+  padding-right: 24px;
+}
+
+[dir='rtl'] .asus-checkbox-custom {
+  left: unset;
+  right: 0;
+}
+
+[dir='rtl'] .asus-password-toggle {
+  left: 12px;
+  right: unset;
+}
+
+[dir='rtl'] .asus-password-wrapper input {
+  padding-left: 48px;
+  padding-right: 16px;
+}
+
+/* ===== ACCESSIBILITY ===== */
+.asus-form-group input:focus-visible {
+  outline: 2px solid #1f7a3d;
+  outline-offset: 2px;
+}
+
+.asus-btn:focus-visible {
+  outline: 2px solid #1f7a3d;
+  outline-offset: 2px;
+}
+
+.asus-checkbox-label:focus-within .asus-checkbox-custom {
+  outline: 2px solid #1f7a3d;
+  outline-offset: 2px;
+}
+
+/* ===== RESPONSIVE ADJUSTMENTS ===== */
+@media screen and (max-width: 731px) {
+  .asus-wrapper {
+    padding: 0 16px;
+  }
+}

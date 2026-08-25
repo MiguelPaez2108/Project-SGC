@@ -1,26 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;600;700&display=swap');
 @import "tailwindcss";
 
+/* =============================================
+   SGC DESIGN SYSTEM — colores del login
+   ============================================= */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Fondos */
+  --sgc-bg:         #f3f3f3;
+  --sgc-surface:    #ffffff;
+
+  /* Texto */
+  --sgc-text:       #181818;
+  --sgc-text-muted: #4d4d4d;
+  --sgc-text-light: #818181;
+
+  /* Azul primario (botón del login) */
+  --sgc-primary:        #0066cc;
+  --sgc-primary-hover:  #0052a3;
+  --sgc-primary-active: #003d7a;
+  --sgc-primary-light:  #e8f0fb;
+
+  /* Bordes */
+  --sgc-border:     #e5e5e5;
+  --sgc-border-mid: #bbbbbb;
+
+  /* Estados */
+  --sgc-success:    #059669;
+  --sgc-warning:    #d97706;
+  --sgc-danger:     #d32f2f;
+  --sgc-danger-bg:  #fdecea;
+
+  /* Sombras */
+  --sgc-shadow-sm:  0 1px 3px rgba(0,0,0,0.12);
+  --sgc-shadow-md:  1px 1px 6px 0 rgba(0,0,0,0.15);
+
+  /* Fuente */
+  --sgc-font: 'Roboto', 'Segoe UI', 'Arial', sans-serif;
+
+  /* Layout */
+  --sgc-sidebar-w: 240px;
+  --sgc-header-h:  56px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* =============================================
+   RESET BASE
+   ============================================= */
+*, *::before, *::after {
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--sgc-bg);
+  color: var(--sgc-text);
+  font-family: var(--sgc-font);
+  line-height: 1.5;
+  min-height: 100vh;
 }

@@ -1,0 +1,5 @@
+ GET / 200 in 1099ms (next.js: 39ms, proxy.ts: 780ms, application-code: 279ms)
+[browser] Image with src "http://localhost:3000/vercel.svg" has either width or height modified, but not the other. If you use CSS to change the size of your image, also include the styles 'width: "auto"' or 'height: "auto"' to maintain the aspect ratio.
+
+To get started, edit the page.tsx file.
+Looking for a starting point or more instructions? Head over to Templates or the Learning cen

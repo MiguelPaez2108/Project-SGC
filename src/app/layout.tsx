@@ -27,6 +27,32 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        {/*
+          Script síncrono dentro de <head>: se ejecuta ANTES de cualquier JS de la página.
+          Garantiza que window.AsusAPIConfig esté disponible cuando memberEntryPage.js
+          llame a getCountryByIp durante su inicialización.
+          Funciona porque este es un Server Component — el HTML se renderiza en el servidor
+          y el <script> llega ya en el HTML inicial al navegador.
+        */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              document.cookie = "Site=global; path=/;";
+              window.AsusAPIConfig = {
+                appID: '0000000000',
+                websitePath: 'es',
+                language: 'es',
+                page: 'account',
+                pageKey: 'signup',
+                system: 'asus',
+                simplifyFooter: true,
+                simplifyHeader: true
+              };
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-full flex flex-col">{children}</body>
     </html>
   );
