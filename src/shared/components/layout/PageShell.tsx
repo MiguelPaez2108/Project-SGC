@@ -11,7 +11,7 @@ interface PageShellProps {
 export function PageShell({ user, title, children }: PageShellProps) {
   return (
     <div style={{ display: 'flex', minHeight: '100vh', background: 'var(--sgc-bg)' }}>
-      <Sidebar />
+      <Sidebar user={user} />
       <div style={{
         marginLeft: 'var(--sgc-sidebar-w)',
         flex: 1,
@@ -31,3 +31,4 @@ export function PageShell({ user, title, children }: PageShellProps) {
     </div>
   )
 }
+

@@ -1,6 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextResponse, type NextRequest } from 'next/server'
-import type { Database } from '@/infrastructure/supabase/types'
+import type { Database, RolType } from '@/infrastructure/supabase/types'
+import { canAccess } from '@/lib/rbac'
 
 export async function updateSession(request: NextRequest) {
   let supabaseResponse = NextResponse.next({
@@ -54,5 +55,42 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url)
   }
 
+  // RBAC: check role-based access for dashboard routes
+  if (user && pathname.startsWith('/dashboard')) {
+    // Fetch user profile to get rol — cast necesario porque los tipos generados no encajan sin as any
+    const { data: profileData } = await (supabase as any)
+      .from('usuarios')
+      .select('rol, activo')
+      .eq('id', user.id)
+      .single()
+
+    const profile = profileData as { rol: RolType; activo: boolean } | null
+
+    // If no profile or user is inactive, redirect to login
+    if (!profile || !profile.activo) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      return NextResponse.redirect(url)
+    }
+
+    const rol = profile.rol
+
+    // Clientes have no access to the dashboard
+    if (rol === 'cliente') {
+      const url = request.nextUrl.clone()
+      url.pathname = '/login'
+      url.searchParams.set('error', 'sin_acceso_dashboard')
+      return NextResponse.redirect(url)
+    }
+
+    // Check if the role can access this specific route
+    if (!canAccess(rol, pathname)) {
+      const url = request.nextUrl.clone()
+      url.pathname = '/dashboard/acceso-denegado'
+      return NextResponse.redirect(url)
+    }
+  }
+
   return supabaseResponse
 }
+

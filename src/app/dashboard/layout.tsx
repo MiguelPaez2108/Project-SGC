@@ -20,9 +20,20 @@ export default async function DashboardLayout({
     .single()
 
   const profile = data as Usuario | null
-  const authUser: AuthUser | null = profile
-    ? { id: profile.id, email: profile.email, nombre: profile.nombre, rol: profile.rol, activo: profile.activo }
-    : null
+
+  // Si el perfil no existe o el usuario está inactivo, cerrar sesión
+  if (!profile || !profile.activo) {
+    await supabase.auth.signOut()
+    redirect('/login')
+  }
+
+  const authUser: AuthUser = {
+    id: profile.id,
+    email: profile.email,
+    nombre: profile.nombre,
+    rol: profile.rol,
+    activo: profile.activo,
+  }
 
   return <PageShell user={authUser}>{children}</PageShell>
 }

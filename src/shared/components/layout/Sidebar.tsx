@@ -13,17 +13,23 @@ import {
 } from 'lucide-react'
 import { createClient } from '@/infrastructure/supabase/client'
 import { useRouter } from 'next/navigation'
+import { NAV_ITEMS_DEF } from '@/lib/rbac'
+import type { AuthUser } from '@/domains/auth/types/auth.types'
 
-const NAV_ITEMS = [
-  { href: '/dashboard',              label: 'Dashboard',    icon: LayoutDashboard },
-  { href: '/dashboard/canchas',      label: 'Canchas',      icon: MapPin          },
-  { href: '/dashboard/reservas',     label: 'Reservas',     icon: CalendarDays    },
-  { href: '/dashboard/usuarios',     label: 'Usuarios',     icon: Users           },
-  { href: '/dashboard/reportes',     label: 'Reportes',     icon: TrendingUp      },
-  { href: '/dashboard/configuracion',label: 'Configuración',icon: Settings        },
-]
+const ICON_MAP: Record<string, React.ElementType> = {
+  '/dashboard':               LayoutDashboard,
+  '/dashboard/canchas':       MapPin,
+  '/dashboard/reservas':      CalendarDays,
+  '/dashboard/usuarios':      Users,
+  '/dashboard/reportes':      TrendingUp,
+  '/dashboard/configuracion': Settings,
+}
 
-export function Sidebar() {
+interface SidebarProps {
+  user: AuthUser | null
+}
+
+export function Sidebar({ user }: SidebarProps) {
   const pathname = usePathname()
   const router   = useRouter()
 
@@ -38,6 +44,11 @@ export function Sidebar() {
     if (href === '/dashboard') return pathname === '/dashboard'
     return pathname.startsWith(href)
   }
+
+  // Filtrar ítems según el rol del usuario
+  const navItems = NAV_ITEMS_DEF.filter((item) =>
+    user ? item.roles.includes(user.rol) : false
+  )
 
   return (
     <aside style={{
@@ -76,8 +87,9 @@ export function Sidebar() {
 
       {/* Nav */}
       <nav style={{ flex: 1, padding: '12px 8px', overflowY: 'auto' }}>
-        {NAV_ITEMS.map(({ href, label, icon: Icon }) => {
+        {navItems.map(({ href, label }) => {
           const active = isActive(href)
+          const Icon = ICON_MAP[href] ?? LayoutDashboard
           return (
             <Link
               key={href}
@@ -152,3 +164,4 @@ export function Sidebar() {
     </aside>
   )
 }
+

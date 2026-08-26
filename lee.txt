@@ -1,0 +1,40 @@
+¡Che, vamos a revisarlo en serio! Está bien pensado en varias partes (estructura por dominios, Zod + RHF, TanStack Query), pero hay una mezcla de patrones sólidos con código "de arranque" que necesita limpieza antes de escalar. Vamos por partes.
+
+## 🚨 Esto hay que arreglarlo hoy mismo
+
+**`supabase.txt` tiene tu `service_role` key en texto plano, y no está en `.gitignore`.** Decodifiqué el JWT y confirma `"role":"service_role"` — esa key salta por encima de cualquier RLS y le da acceso total de lectura/escritura a toda tu base de datos. Si ese archivo ya se subió a git (aunque sea a un repo privado), tratá la key como comprometida:
+1. Rotá la key en el dashboard de Supabase ahora.
+2. Borrá `supabase.txt` del repo y de la historia de git.
+3. Metela solo en `.env.local` (ese sí está ignorado) y nunca la mandes al cliente — el `service_role` no debería existir fuera de un contexto server-only, y probablemente ni la necesites si RLS está bien configurado.
+
+**No veo RBAC real en ningún lado.** `DashboardLayout` solo chequea `if (!user) redirect('/login')`. Un usuario con `rol: 'cliente'` (el default al registrarse) llega exactamente al mismo dashboard que un admin: `/dashboard/usuarios`, `/dashboard/reportes`, `/dashboard/canchas/nueva`, todo. El Sidebar tampoco filtra por rol. Esto tiene que resolverse en dos capas: middleware/layout (UX) **y** RLS policies en Postgres (seguridad real — nunca confiar solo en el chequeo del cliente).
+
+**El precio de una reserva se calcula en el navegador y se inserta tal cual.** En `reservas/nueva/page.tsx`, `precioCalculado` sale de un `useEffect` en el cliente y va directo al `insert()`. Cualquiera con devtools puede cambiar `precio_total` antes de enviar. Esto debería recalcularse server-side (Server Action o función de Postgres) antes de persistir.
+
+## 🏗️ Inconsistencias de arquitectura
+
+- Tenés una capa de servicios + hooks de React Query (`canchasService`/`useCanchas`, `reservasService`/`useReservas`) que está bien armada... pero casi ninguna página la usa. `nueva/page.tsx`, `EditarCanchaForm.tsx`, `CambiarEstadoReserva.tsx` y `reservas/nueva/page.tsx` hacen `createClient()` y consultan Supabase directo, ignorando toda esa capa. Elegí un patrón y aplicalo en todos lados.
+- `as any` por todas partes en las llamadas a Supabase (`(supabase.from('canchas') as any).insert(...)`). Eso significa que tus tipos de `Database` no te están protegiendo de nada en la práctica. Vale la pena regenerar los tipos con el CLI de Supabase y ver por qué el genérico no encaja sin el cast.
+- Hay **dos sistemas de diseño compitiendo**: el tema claro con variables CSS (`--sgc-*`) que usan todas las páginas reales del dashboard, y un tema oscuro slate/emerald en `CanchaForm.tsx` y `CanchaCard.tsx` que no se usa en ningún lado (las páginas reales de canchas tienen su propio form inline con estilos duplicados). Esos dos componentes son código huérfano — o los conectás o los borrás.
+- `reserva.schema.ts` (con su `.refine` de hora_fin > hora_inicio) tampoco se usa: `reservas/nueva/page.tsx` define su propio schema local, más flojo, y valida las horas a mano en un `useEffect`. Consolidá en una sola fuente de verdad.
+- `inputStyle`/`labelStyle`/`errorStyle` están copy-pasteados idénticos en al menos 3 archivos. Con `cn.ts` y `class-variance-authority` ya instalados, te conviene armar 3-4 primitivos (`Input`, `Label`, `FieldError`, `Button`) y dejar de repetir objetos de estilo.
+
+## 👻 Código fantasma
+
+- `src/app/api/auth/register/route.ts`, `src/app/api/auth/oauth/[provider]/route.ts` y `src/app/api/auth/callback/[provider]/route.ts` son stubs con `// TODO` que no se conectan a nada — el login/registro real pasa por `authService` + Supabase Auth directo. Si no los vas a terminar, bórralos; confunden a cualquiera que entre al repo.
+- Las páginas de login/register (`LoginAsus.css`, `memberEntryPage.js`, el script que sobreescribe `window.location.href` para bloquear redirects del bundle de ASUS, los links a `asus.com/.../Privacy_Policy`, el copyright "ASUSTeK Computer Inc.") son literalmente una plantilla de la cuenta de ASUS adaptada a los tirones. Funciona, pero es fragilísimo (peleás contra un script externo que no controlás) y tiene texto legal/marca de otra empresa. Para el "próximo nivel" esto merece un rediseño propio con tu sistema `--sgc-*`, sin dependencias de scripts ajenos.
+- Tu schema de Supabase modela `franjas_horarias`, `pagos`, `notificaciones` y `mantenimiento` — pero **cero** UI o servicio las usa. Es una base de datos más ambiciosa que la app actual. Esto es en realidad tu mejor oportunidad: ya tenés el modelo de precios dinámicos por franja horaria, solo falta construir encima.
+- Dato concreto y fácil de arreglar: `reservasService.getByCancha(canchaId, fecha)` ya existe y devuelve las reservas activas de una cancha en una fecha — pero **nunca se llama** antes de crear una reserva nueva. Hoy podés doble-reservar la misma cancha en el mismo horario sin que nada te avise.
+
+## 🚀 Para llevarlo al otro nivel, en orden de impacto
+
+1. Cerrar los huecos de seguridad de arriba (RLS + RBAC + rotar key).
+2. Usar `franjas_horarias` para armar un calendario visual de disponibilidad (día/semana) en vez del form de hora_inicio/hora_fin a mano — es lo que realmente diferencia un sistema de reservas.
+3. Validar solapamiento de horarios al crear/editar una reserva (con `getByCancha`, o mejor, un exclusion constraint en Postgres para que ni una condición de carrera lo rompa).
+4. Conectar `pagos` a Stripe de verdad en vez del booleano `pagado` manual.
+5. Reportes: ya tenés `recharts` instalado y no lo usás — las barras de progreso hechas a mano en `reportes/page.tsx` podrían ser gráficos reales en 10 minutos.
+6. Supabase Realtime para que el dashboard (reservas pendientes, KPIs) se actualice solo.
+7. Tests (Vitest para servicios/schemas, Playwright para los flujos de reserva) — hoy no hay ni un test.
+8. `error.tsx` / `loading.tsx` por ruta, que Next.js App Router te da gratis y no estás usando.
+
+¿Por dónde querés que ataquemos primero? Si me decís, puedo meterme directo a escribir las policies de RLS, armar el calendario de disponibilidad, o refactorizar los formularios a los primitivos compartidos.
